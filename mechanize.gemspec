@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Aaron Patterson", "Mike Dalessio"]
   s.date = %q{2010-09-03}
-  s.description = %q{The Mechanize library is used for automating interaction with websites. 
+  s.description = %q{The Mechanize library is used for automating interaction with websites.
 Mechanize automatically stores and sends cookies, follows redirects,
 can follow links, and submit forms.  Form fields can be populated and
 submitted.  Mechanize also keeps track of the sites that you have visited as
@@ -30,6 +30,7 @@ a history.}
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<nokogiri>, [">= 1.2.1"])
       s.add_runtime_dependency(%q<net-http-persistent>, ["~> 1.1"])
+      s.add_runtime_dependency(%q<addressable>, [])
       s.add_development_dependency(%q<rubyforge>, [">= 2.0.4"])
       s.add_development_dependency(%q<hoe>, [">= 2.6.1"])
     else
@@ -37,11 +38,13 @@ a history.}
       s.add_dependency(%q<net-http-persistent>, ["~> 1.1"])
       s.add_dependency(%q<rubyforge>, [">= 2.0.4"])
       s.add_dependency(%q<hoe>, [">= 2.6.1"])
+      s.add_dependency(%q<addressable>, [])
     end
   else
     s.add_dependency(%q<nokogiri>, [">= 1.2.1"])
     s.add_dependency(%q<net-http-persistent>, ["~> 1.1"])
     s.add_dependency(%q<rubyforge>, [">= 2.0.4"])
     s.add_dependency(%q<hoe>, [">= 2.6.1"])
+    s.add_dependency(%q<addressable>, [])
   end
 end

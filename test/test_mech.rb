@@ -73,16 +73,16 @@ class TestMechMethods < Test::Unit::TestCase
       request = params[:request]
     }
 
-    @agent.get('http://localhost/', URI.parse('http://google.com/'))
+    @agent.get('http://localhost/', Addressable::URI.parse('http://google.com/'))
     assert_equal 'http://google.com/', request['Referer']
 
     @agent.get('http://localhost/', [], 'http://tenderlovemaking.com/')
     assert_equal 'http://tenderlovemaking.com/', request['Referer']
   end
-  
+
   def test_get_with_file_referer
     assert_nothing_raised do
-      @agent.get('http://localhost', [], Mechanize::File.new(URI.parse('http://tenderlovemaking.com/crossdomain.xml')))
+      @agent.get('http://localhost', [], Mechanize::File.new(Addressable::URI.parse('http://tenderlovemaking.com/crossdomain.xml')))
     end
   end
 
@@ -153,7 +153,7 @@ class TestMechMethods < Test::Unit::TestCase
       assert_equal(i, @agent.history.size)
       page = @agent.get("http://localhost/")
     end
-    
+
     0.upto(10) do |i|
       assert_equal(10, @agent.history.size)
       page = @agent.get("http://localhost/")

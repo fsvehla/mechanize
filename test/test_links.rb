@@ -21,7 +21,7 @@ class LinksMechTest < Test::Unit::TestCase
     }
 
     @agent.scheme_handlers['javascript'] = lambda { |my_link, my_page|
-      URI.parse('http://localhost/tc_links.html')
+      Addressable::URI.parse('http://localhost/tc_links.html')
     }
     assert_nothing_raised {
       link.click

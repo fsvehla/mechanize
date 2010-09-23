@@ -1,5 +1,6 @@
 require 'openssl'
 require 'net/http/persistent'
+require 'addressable/uri'
 require 'uri'
 require 'webrick/httputils'
 require 'zlib'
@@ -191,7 +192,7 @@ class Mechanize
   # Sets the proxy address, port, user, and password
   # +addr+ should be a host, with no "http://"
   def set_proxy(addr, port, user = nil, pass = nil)
-    proxy = URI.parse "http://#{addr}"
+    proxy = Addressable::URI.parse "http://#{addr}"
     proxy.port = port
     proxy.user     = user if user
     proxy.password = pass if pass
@@ -250,7 +251,7 @@ class Mechanize
     # Mechanize::Page#base
     unless referer.is_a?(Mechanize::File)
       referer = referer.is_a?(String) ?
-      Page.new(URI.parse(referer), {'content-type' => 'text/html'}) :
+      Page.new(Addressable::URI.parse(referer), {'content-type' => 'text/html'}) :
         Page.new(referer, {'content-type' => 'text/html'})
     end
 

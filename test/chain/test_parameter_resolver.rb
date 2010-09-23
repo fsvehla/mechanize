@@ -6,7 +6,7 @@ class TestParameterResolver < Test::Unit::TestCase
       Mechanize::Chain::ParameterResolver.new
     ])
     hash = {
-      :uri    => URI.parse('http://google.com/'),
+      :uri    => Addressable::URI.parse('http://google.com/'),
       :params => { :q => 'hello' },
       :verb   => :get
     }
@@ -22,7 +22,7 @@ class TestParameterResolver < Test::Unit::TestCase
       Mechanize::Chain::ParameterResolver.new
     ])
     hash = {
-      :uri    => URI.parse('http://google.com/'),
+      :uri    => Addressable::URI.parse('http://google.com/'),
       :params => { :q => 'hello' },
       :verb   => :post
     }

@@ -48,7 +48,7 @@ class MetaTest < Test::Unit::TestCase
   #
 
   def test_parse_documentation
-    uri = URI.parse('http://current.com/here/')
+    uri = Addressable::URI.parse('http://current.com/here/')
 
     assert_equal ['5', 'http://example.com/'], Meta.parse("5;url=http://example.com/", uri)
     assert_equal ['5', 'http://current.com/here/test'], Meta.parse("5;url=test", uri)
@@ -59,7 +59,7 @@ class MetaTest < Test::Unit::TestCase
   end
 
   def test_parse_returns_nil_if_no_delay_and_url_can_be_parsed
-    uri = URI.parse('http://current.com/')
+    uri = Addressable::URI.parse('http://current.com/')
 
     assert_equal nil, Meta.parse("invalid content", uri)
     assert_equal nil, Meta.parse("invalid content", uri) {|delay, url| 'not nil' }

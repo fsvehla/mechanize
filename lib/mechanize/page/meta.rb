@@ -21,7 +21,7 @@ class Mechanize
         # Returns nil if the delay and url cannot be parsed.
         #
         #   # <meta http-equiv="refresh" content="5;url=http://example.com/" />
-        #   uri = URI.parse('http://current.com/')
+        #   uri = Addressable::URI.parse('http://current.com/')
         #
         #   Meta.parse("5;url=http://example.com/", uri)  # => ['5', 'http://example.com/']
         #   Meta.parse("5;url=", uri)                     # => ['5', 'http://current.com/']

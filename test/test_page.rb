@@ -95,7 +95,7 @@ class TestPage < Test::Unit::TestCase
 
   def test_page_decoded_with_charset
     page = Mechanize::Page.new(
-      URI.parse('http://tenderlovemaking.com/'),
+      Addressable::URI.parse('http://tenderlovemaking.com/'),
       { 'content-type' => 'text/html; charset=EUC-JP' },
       '<html><body>hello</body></html>',
       400,

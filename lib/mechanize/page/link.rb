@@ -36,7 +36,7 @@ class Mechanize
       end
 
       def uri
-        @href && URI.parse(WEBrick::HTTPUtils.escape(@href))
+        @href && Addressable::URI.parse(WEBrick::HTTPUtils.escape(@href))
       end
 
       # Click on this link

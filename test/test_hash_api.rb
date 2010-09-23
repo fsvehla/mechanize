@@ -31,7 +31,7 @@ class TestHashApi < Test::Unit::TestCase
     }
 
     @agent.get( :url => 'http://localhost/',
-                :referer => URI.parse('http://google.com/')
+                :referer => Addressable::URI.parse('http://google.com/')
               )
 
     assert request

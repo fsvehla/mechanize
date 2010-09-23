@@ -27,7 +27,7 @@ class CookieClassTest < Test::Unit::TestCase
   end
 
   def test_parse_dates
-    url = URI.parse('http://localhost/')
+    url = Addressable::URI.parse('http://localhost/')
 
     yesterday = Time.now - 86400
 
@@ -61,7 +61,7 @@ class CookieClassTest < Test::Unit::TestCase
 
   def test_parse_weird_cookie
     cookie = 'n/a, ASPSESSIONIDCSRRQDQR=FBLDGHPBNDJCPCGNCPAENELB; path=/'
-    url = URI.parse('http://www.searchinnovation.com/')
+    url = Addressable::URI.parse('http://www.searchinnovation.com/')
     Mechanize::Cookie.parse(url, cookie) { |c|
       assert_equal('ASPSESSIONIDCSRRQDQR', c.name)
       assert_equal('FBLDGHPBNDJCPCGNCPAENELB', c.value)
@@ -70,7 +70,7 @@ class CookieClassTest < Test::Unit::TestCase
 
   def test_double_semicolon
     double_semi = 'WSIDC=WEST;; domain=.williams-sonoma.com; path=/'
-    url = URI.parse('http://williams-sonoma.com/')
+    url = Addressable::URI.parse('http://williams-sonoma.com/')
     Mechanize::Cookie.parse(url, double_semi) { |cookie|
       assert_equal('WSIDC', cookie.name)
       assert_equal('WEST', cookie.value)
@@ -79,7 +79,7 @@ class CookieClassTest < Test::Unit::TestCase
 
   def test_parse_bad_version
     bad_cookie = 'PRETANET=TGIAqbFXtt; Name=/PRETANET; Path=/; Version=1.2; Content-type=text/html; Domain=192.168.6.196; expires=Friday, 13-November-2026  23:01:46 GMT;'
-    url = URI.parse('http://localhost/')
+    url = Addressable::URI.parse('http://localhost/')
     Mechanize::Cookie.parse(url, bad_cookie) { |cookie|
       assert_nil(cookie.version)
     }
@@ -87,14 +87,14 @@ class CookieClassTest < Test::Unit::TestCase
 
   def test_parse_bad_max_age
     bad_cookie = 'PRETANET=TGIAqbFXtt; Name=/PRETANET; Path=/; Max-Age=1.2; Content-type=text/html; Domain=192.168.6.196; expires=Friday, 13-November-2026  23:01:46 GMT;'
-    url = URI.parse('http://localhost/')
+    url = Addressable::URI.parse('http://localhost/')
     Mechanize::Cookie.parse(url, bad_cookie) { |cookie|
       assert_nil(cookie.max_age)
     }
   end
 
   def test_parse_date_fail
-    url = URI.parse('http://localhost/')
+    url = Addressable::URI.parse('http://localhost/')
 
     dates = [ 
               "20/06/95 21:07",
@@ -111,7 +111,7 @@ class CookieClassTest < Test::Unit::TestCase
   end
 
   def test_parse_valid_cookie
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
     cookie_params = {}
     cookie_params['expires']   = 'expires=Sun, 27-Sep-2037 00:00:00 GMT'
     cookie_params['path']      = 'path=/'
@@ -147,7 +147,7 @@ class CookieClassTest < Test::Unit::TestCase
   end
 
   def test_parse_valid_cookie_empty_value
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
     cookie_params = {}
     cookie_params['expires']   = 'expires=Sun, 27-Sep-2037 00:00:00 GMT'
     cookie_params['path']      = 'path=/'
@@ -185,7 +185,7 @@ class CookieClassTest < Test::Unit::TestCase
 
   # If no path was given, use the one from the URL
   def test_cookie_using_url_path
-    url = URI.parse('http://rubyforge.org/login.php')
+    url = Addressable::URI.parse('http://rubyforge.org/login.php')
     cookie_params = {}
     cookie_params['expires']   = 'expires=Sun, 27-Sep-2037 00:00:00 GMT'
     cookie_params['path']      = 'path=/'
@@ -223,7 +223,7 @@ class CookieClassTest < Test::Unit::TestCase
 
   # Test using secure cookies
   def test_cookie_with_secure
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
     cookie_params = {}
     cookie_params['expires']   = 'expires=Sun, 27-Sep-2037 00:00:00 GMT'
     cookie_params['path']      = 'path=/'
@@ -262,7 +262,7 @@ class CookieClassTest < Test::Unit::TestCase
 
   # If no domain was given, we must use the one from the URL
   def test_cookie_with_url_domain
-    url = URI.parse('http://login.rubyforge.org/')
+    url = Addressable::URI.parse('http://login.rubyforge.org/')
     cookie_params = {}
     cookie_params['expires']   = 'expires=Sun, 27-Sep-2037 00:00:00 GMT'
     cookie_params['path']      = 'path=/'
@@ -300,7 +300,7 @@ class CookieClassTest < Test::Unit::TestCase
   end
 
   def test_parse_cookie_no_spaces
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
     cookie_params = {}
     cookie_params['expires']   = 'expires=Sun, 27-Sep-2037 00:00:00 GMT'
     cookie_params['path']      = 'path=/'

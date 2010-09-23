@@ -6,7 +6,7 @@ class TestRequestResolver < Test::Unit::TestCase
       Mechanize::Chain::RequestResolver.new
     ])
     hash = {
-      :uri  => URI.parse('http://google.com'),
+      :uri  => Addressable::URI.parse('http://google.com'),
       :verb => :get
     }
     assert_nothing_raised { v.handle(hash) }
@@ -19,7 +19,7 @@ class TestRequestResolver < Test::Unit::TestCase
       Mechanize::Chain::RequestResolver.new
     ])
     hash = {
-      :uri  => URI.parse('http://google.com'),
+      :uri  => Addressable::URI.parse('http://google.com'),
       :verb => :post
     }
     assert_nothing_raised { v.handle(hash) }

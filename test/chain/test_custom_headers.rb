@@ -5,7 +5,7 @@ class TestCustomHeaders < Test::Unit::TestCase
     v = Mechanize::Chain.new([
       Mechanize::Chain::CustomHeaders.new
     ])
-    url = URI.parse('http://tenderlovemaking.com/')
+    url = Addressable::URI.parse('http://tenderlovemaking.com/')
     hash = {
       :request => Net::HTTP::Get.new(url.request_uri),
       :headers => { 'Content-Length' => 300 }

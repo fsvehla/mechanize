@@ -21,7 +21,7 @@ class CookieJarTest < Test::Unit::TestCase
   end
 
   def test_two_cookies_same_domain_and_name_different_paths
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     cookie = cookie_from_hash(cookie_values)
@@ -29,11 +29,11 @@ class CookieJarTest < Test::Unit::TestCase
     jar.add(url, cookie_from_hash(cookie_values(:path => '/onetwo')))
 
     assert_equal(1, jar.cookies(url).length)
-    assert_equal 2, jar.cookies(URI.parse('http://rubyforge.org/onetwo')).length
+    assert_equal 2, jar.cookies(Addressable::URI.parse('http://rubyforge.org/onetwo')).length
   end
 
   def test_domain_case
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)
@@ -48,13 +48,13 @@ class CookieJarTest < Test::Unit::TestCase
 
     assert_equal(2, jar.cookies(url).length)
 
-    url2 = URI.parse('http://RuByFoRgE.oRg/')
+    url2 = Addressable::URI.parse('http://RuByFoRgE.oRg/')
     assert_equal(2, jar.cookies(url2).length)
   end
 
   def test_empty_value
     values = cookie_values(:value => "")
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)
@@ -70,12 +70,12 @@ class CookieJarTest < Test::Unit::TestCase
 
     assert_equal(2, jar.cookies(url).length)
 
-    url2 = URI.parse('http://RuByFoRgE.oRg/')
+    url2 = Addressable::URI.parse('http://RuByFoRgE.oRg/')
     assert_equal(2, jar.cookies(url2).length)
   end
 
   def test_add_future_cookies
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)
@@ -90,14 +90,14 @@ class CookieJarTest < Test::Unit::TestCase
     assert_equal(1, jar.cookies(url).length)
 
     # Make sure we can get the cookie from different paths
-    assert_equal(1, jar.cookies(URI.parse('http://rubyforge.org/login')).length)
+    assert_equal(1, jar.cookies(Addressable::URI.parse('http://rubyforge.org/login')).length)
 
     # Make sure we can't get the cookie from different domains
-    assert_equal(0, jar.cookies(URI.parse('http://google.com/')).length)
+    assert_equal(0, jar.cookies(Addressable::URI.parse('http://google.com/')).length)
   end
 
   def test_add_multiple_cookies
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)
@@ -112,14 +112,14 @@ class CookieJarTest < Test::Unit::TestCase
     assert_equal(2, jar.cookies(url).length)
 
     # Make sure we can get the cookie from different paths
-    assert_equal(2, jar.cookies(URI.parse('http://rubyforge.org/login')).length)
+    assert_equal(2, jar.cookies(Addressable::URI.parse('http://rubyforge.org/login')).length)
 
     # Make sure we can't get the cookie from different domains
-    assert_equal(0, jar.cookies(URI.parse('http://google.com/')).length)
+    assert_equal(0, jar.cookies(Addressable::URI.parse('http://google.com/')).length)
   end
 
   def test_clear_cookies
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)
@@ -136,7 +136,7 @@ class CookieJarTest < Test::Unit::TestCase
   end
 
   def test_save_cookies
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)
@@ -157,7 +157,7 @@ class CookieJarTest < Test::Unit::TestCase
   end
 
   def test_expire_cookies
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)
@@ -172,7 +172,7 @@ class CookieJarTest < Test::Unit::TestCase
     assert_equal(2, jar.cookies(url).length)
 
     # Make sure we can get the cookie from different paths
-    assert_equal(2, jar.cookies(URI.parse('http://rubyforge.org/login')).length)
+    assert_equal(2, jar.cookies(Addressable::URI.parse('http://rubyforge.org/login')).length)
 
     # Expire the first cookie
     jar.add(url, cookie_from_hash(
@@ -187,7 +187,7 @@ class CookieJarTest < Test::Unit::TestCase
 
   def test_session_cookies
     values = cookie_values(:expires => nil)
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)
@@ -202,7 +202,7 @@ class CookieJarTest < Test::Unit::TestCase
     assert_equal(2, jar.cookies(url).length)
 
     # Make sure we can get the cookie from different paths
-    assert_equal(2, jar.cookies(URI.parse('http://rubyforge.org/login')).length)
+    assert_equal(2, jar.cookies(Addressable::URI.parse('http://rubyforge.org/login')).length)
 
     # Expire the first cookie
     jar.add(url, cookie_from_hash(values.merge(:expires => Time.now - (10 * 86400))))
@@ -215,7 +215,7 @@ class CookieJarTest < Test::Unit::TestCase
 
     # When given a URI with a blank path, CookieJar#cookies should return
     # cookies with the path '/':
-    url = URI.parse('http://rubyforge.org')
+    url = Addressable::URI.parse('http://rubyforge.org')
     assert_equal '', url.path
     assert_equal(0, jar.cookies(url).length)
     # Now add a cookie with the path set to '/':
@@ -226,7 +226,7 @@ class CookieJarTest < Test::Unit::TestCase
 
   def test_paths
     values = cookie_values(:path => "/login", :expires => nil)
-    url = URI.parse('http://rubyforge.org/login')
+    url = Addressable::URI.parse('http://rubyforge.org/login')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)
@@ -241,8 +241,8 @@ class CookieJarTest < Test::Unit::TestCase
     assert_equal(2, jar.cookies(url).length)
 
     # Make sure we don't get the cookie in a different path
-    assert_equal(0, jar.cookies(URI.parse('http://rubyforge.org/hello')).length)
-    assert_equal(0, jar.cookies(URI.parse('http://rubyforge.org/')).length)
+    assert_equal(0, jar.cookies(Addressable::URI.parse('http://rubyforge.org/hello')).length)
+    assert_equal(0, jar.cookies(Addressable::URI.parse('http://rubyforge.org/')).length)
 
     # Expire the first cookie
     jar.add(url, cookie_from_hash(values.merge( :expires => Time.now - (10 * 86400))))
@@ -256,7 +256,7 @@ class CookieJarTest < Test::Unit::TestCase
 
 
   def test_save_and_read_cookiestxt
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)
@@ -278,7 +278,7 @@ class CookieJarTest < Test::Unit::TestCase
   end
 
   def test_save_and_read_cookiestxt_with_session_cookies
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
 
@@ -294,7 +294,7 @@ class CookieJarTest < Test::Unit::TestCase
   end
 
   def test_save_and_read_expired_cookies
-    url = URI.parse('http://rubyforge.org/')
+    url = Addressable::URI.parse('http://rubyforge.org/')
 
     jar = Mechanize::CookieJar.new
     jar.jar['rubyforge.org'] = {}
@@ -308,7 +308,7 @@ class CookieJarTest < Test::Unit::TestCase
     # thanks to michal "ocher" ochman for reporting the bug responsible for this test.
     values = cookie_values(:expires => nil)
     values_ssl = values.merge(:domain => "#{values[:domain]}:443")
-    url = URI.parse('https://rubyforge.org/login')
+    url = Addressable::URI.parse('https://rubyforge.org/login')
 
     jar = Mechanize::CookieJar.new
     assert_equal(0, jar.cookies(url).length)

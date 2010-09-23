@@ -17,7 +17,7 @@ class TestSaveFile < Test::Unit::TestCase
 
   def test_save_file_default
     page = Mechanize::File.new(
-                                    URI.parse('http://localhost/test.html'),
+                                    Addressable::URI.parse('http://localhost/test.html'),
                                     {},
                                     "hello"
                                    )
@@ -34,7 +34,7 @@ class TestSaveFile < Test::Unit::TestCase
 
   def test_save_file_default_with_dots
     page = Mechanize::File.new(
-                                    URI.parse('http://localhost/../test.html'),
+                                    Addressable::URI.parse('http://localhost/../test.html'),
                                     {},
                                     "hello"
                                    )

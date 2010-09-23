@@ -58,7 +58,7 @@ class Net::HTTP
   alias :old_request :request
 
   def request(request, *data, &block)
-    url = URI.parse(request.path)
+    url = Addressable::URI.parse(request.path)
     path = WEBrick::HTTPUtils.unescape(url.path)
 
     path = '/index.html' if path == '/'

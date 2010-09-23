@@ -18,7 +18,7 @@ class TestHeaderResolver < Test::Unit::TestCase
   def test_handle
     hash = {
       :request => {},
-      :uri => URI.parse('http://google.com/')
+      :uri => Addressable::URI.parse('http://google.com/')
     }
     @chain.handle(hash)
     assert_equal 'world', hash[:request]['hello']

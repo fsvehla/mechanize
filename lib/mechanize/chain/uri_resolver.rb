@@ -30,9 +30,9 @@ class Mechanize
                                            )
 
           begin
-            uri = URI.parse(escaped_uri)
+            uri = Addressable::URI.parse(escaped_uri)
           rescue
-            uri = URI.parse(WEBrick::HTTPUtils.escape(escaped_uri))
+            uri = Addressable::URI.parse(WEBrick::HTTPUtils.escape(escaped_uri))
           end
 
         end
